@@ -1,5 +1,14 @@
-lazy val akkaHttpVersion = "10.0.11"
-lazy val akkaVersion    = "2.5.11"
+
+val meta = """META.INF(.)*""".r
+val assemblySettings=Seq(assemblyMergeStrategy in assembly := {
+  case PathList("javax", "servlet", xs@_*) => MergeStrategy.first
+  case PathList(ps@_*) if ps.last endsWith ".html" => MergeStrategy.first
+  case n if n.startsWith("reference.conf") => MergeStrategy.concat
+  case n if n.endsWith(".conf") => MergeStrategy.concat
+  case meta(_) => MergeStrategy.discard
+  case x => MergeStrategy.first
+
+})
 
 lazy val root = (project in file(".")).
   settings(
@@ -13,7 +22,7 @@ lazy val root = (project in file(".")).
       "org.scalatest"     %% "scalatest"            % "3.0.1"         % Test
     )
   )
-
+enablePlugins(JavaAppPackaging)
 
 mainClass in Compile := Some("com.david.searcher.QuickstartApp")
 
