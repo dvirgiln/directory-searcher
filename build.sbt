@@ -19,7 +19,8 @@ lazy val root = (project in file(".")).
     name := "directory-searcher",
     version := "0.0.1-SNAPSHOT",
     libraryDependencies ++= Seq(
-      "org.scalatest"     %% "scalatest"            % "3.0.1"         % Test
+      "org.scalatest" %% "scalatest"            % "3.0.1"   % Test,
+      "org.powermock" % "powermock-api-mockito" % "1.7.4"   % Test
     )
   )
 enablePlugins(JavaAppPackaging)
